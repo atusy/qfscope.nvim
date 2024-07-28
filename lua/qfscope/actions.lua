@@ -15,14 +15,14 @@ end
 
 local actions = {
 	-- navigations
-	open_previous_quickfix = function(prompt_bufnr)
+	open_previous_qfscope = function(prompt_bufnr)
 		update_qfhistory(prompt_bufnr)
 		if require("qfscope._state").nth > 1 then
 			-- FIXME: opts should be reproduced (e.g., sorter)
 			require("qfscope.pickers").qfscope({ nth = require("qfscope._state").nth - 1 })
 		end
 	end,
-	open_next_quickfix = function(prompt_bufnr)
+	open_next_qfscope = function(prompt_bufnr)
 		update_qfhistory(prompt_bufnr)
 		if require("qfscope._state").nth < #require("qfscope._state").record then
 			-- FIXME: opts should be reproduced (e.g., sorter)
@@ -51,8 +51,8 @@ for _, target in pairs({
 end
 
 ---@class QfscopeActions : table<string, function(prompt_bufnr: number)>
----@field open_previous_quickfix function(prompt_bufnr: number)
----@field open_next_quickfix function(prompt_bufnr: number)
+---@field open_previous_qfscope function(prompt_bufnr: number)
+---@field open_next_qfscope function(prompt_bufnr: number)
 ---@field qfscope_search_filename function(prompt_bufnr: number)
 ---@field qfscope_search_line function(prompt_bufnr: number)
 ---@field qfscope_search_text function(prompt_bufnr: number)
