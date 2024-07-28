@@ -18,10 +18,6 @@ M.default = {
 	},
 }
 
-M.user = setmetatable({}, {
-	__index = function(_, key)
-		return M.default[key]
-	end,
-})
+M.user = vim.deepcopy(M.default)
 
 return M
