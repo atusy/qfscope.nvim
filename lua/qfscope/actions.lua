@@ -36,13 +36,13 @@ for _, target in pairs({
 	"line",
 	"text",
 }) do
-	actions["search_" .. target .. "_in_qf"] = function(prompt_bufnr)
+	actions["qfscope_search_" .. target] = function(prompt_bufnr)
 		require("telescope.actions").send_to_qflist(prompt_bufnr)
 		require("qfscope.pickers").qfscope({
 			sorter = require("qfscope.sorters").get_scoped_sorter({ target = target }),
 		})
 	end
-	actions["grep_" .. target .. "_in_qf"] = function(prompt_bufnr)
+	actions["qfscope_grep_" .. target] = function(prompt_bufnr)
 		require("telescope.actions").send_to_qflist(prompt_bufnr)
 		require("qfscope.pickers").qfscope({
 			sorter = require("qfscope.sorters").get_scoped_regex_sorter({ target = target }),
@@ -53,10 +53,10 @@ end
 ---@class QfscopeActions : table<string, function(prompt_bufnr: number)>
 ---@field open_previous_quickfix function(prompt_bufnr: number)
 ---@field open_next_quickfix function(prompt_bufnr: number)
----@field search_filename_in_qf function(prompt_bufnr: number)
----@field search_line_in_qf function(prompt_bufnr: number)
----@field search_text_in_qf function(prompt_bufnr: number)
----@field grep_filename_in_qf function(prompt_bufnr: number)
----@field grep_line_in_qf function(prompt_bufnr: number)
----@field grep_text_in_qf function(prompt_bufnr: number)
+---@field qfscope_search_filename function(prompt_bufnr: number)
+---@field qfscope_search_line function(prompt_bufnr: number)
+---@field qfscope_search_text function(prompt_bufnr: number)
+---@field qfscope_grep_filename function(prompt_bufnr: number)
+---@field qfscope_grep_line function(prompt_bufnr: number)
+---@field qfscope_grep_text function(prompt_bufnr: number)
 return require("telescope.actions.mt").transform_mod(actions)
