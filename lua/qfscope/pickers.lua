@@ -3,7 +3,7 @@ local M = {}
 local state = require("qfscope._state")
 
 --- Telescope quickfix picker with history navigation
-function M.quickfix(opts)
+function M.qfscope(opts)
 	opts = vim.tbl_deep_extend("force", require("qfscope.opts").user, opts or {})
 
 	local nth, id = (function()

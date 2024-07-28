@@ -19,14 +19,14 @@ local actions = {
 		update_qfhistory(prompt_bufnr)
 		if require("qfscope._state").nth > 1 then
 			-- FIXME: opts should be reproduced (e.g., sorter)
-			require("qfscope.pickers").quickfix({ nth = require("qfscope._state").nth - 1 })
+			require("qfscope.pickers").qfscope({ nth = require("qfscope._state").nth - 1 })
 		end
 	end,
 	open_next_quickfix = function(prompt_bufnr)
 		update_qfhistory(prompt_bufnr)
 		if require("qfscope._state").nth < #require("qfscope._state").record then
 			-- FIXME: opts should be reproduced (e.g., sorter)
-			require("qfscope.pickers").quickfix({ nth = require("qfscope._state").nth + 1 })
+			require("qfscope.pickers").qfscope({ nth = require("qfscope._state").nth + 1 })
 		end
 	end,
 }
@@ -38,13 +38,13 @@ for _, target in pairs({
 }) do
 	actions["search_" .. target .. "_in_qf"] = function(prompt_bufnr)
 		require("telescope.actions").send_to_qflist(prompt_bufnr)
-		require("qfscope.pickers").quickfix({
+		require("qfscope.pickers").qfscope({
 			sorter = require("qfscope.sorters").get_scoped_sorter({ target = target }),
 		})
 	end
 	actions["grep_" .. target .. "_in_qf"] = function(prompt_bufnr)
 		require("telescope.actions").send_to_qflist(prompt_bufnr)
-		require("qfscope.pickers").quickfix({
+		require("qfscope.pickers").qfscope({
 			sorter = require("qfscope.sorters").get_scoped_regex_sorter({ target = target }),
 		})
 	end
