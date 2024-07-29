@@ -2,15 +2,15 @@
 
 quickfix + telescope = qfscope
 
-Refine [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) search results by using quickfix list.
-
-Typical use case is to refine search results of `:Telescope live_grep`:
-
-- by filename, which cannot be done by `:Telescope live_grep`
-- by text, which requires complex regex
-
-Let's trigger `qfscope.nvim` actions and refine search results by fuzzy keywords or regex patterns.
+Trigger `qfscope.nvim` actions and refine [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) search results by fuzzy keywords or regex patterns in quickfix list.
 `qfscope.nvim` also provides a simple history navigations.
+
+Typical use case is to refine search results of `:Telescope live_grep` like below.
+
+- Refinements by fuzzy finding filename, which cannot be done by `live_grep`.
+- Refinements by grepping `live_grep`-matched text, which may require if only using `live_grep`.
+
+Of course, you can use `qfscope.nvim` with other telescope commands such as `marks`, `diagnostics`, `lsp_reference` and so on.
 
 ## Demo
 
