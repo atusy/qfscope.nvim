@@ -1,0 +1,142 @@
+*qfscope.txt*     Refine telescope.nvim search results by using quickfix list
+*qfscope.nvim*
+
+Author:  Atsushi Yasumoto
+License: MIT
+Repository: https://github.com/atusy/qfscope.nvim
+
+=============================================================================
+INTRODUCTION                                           *qfscope-introduction*
+
+Trigger `qfscope.nvim` actions and refine |telescope.nvim| search results by
+fuzzy keywords or regex patterns in quickfix list. `qfscope.nvim` also
+provides a simple history navigations.
+
+Typical use case is to refine search results of `:Telescope live_grep` like
+below.
+
+- Refinements by fuzzy finding filename, which cannot be done by `live_grep`
+- Refinements by grepping `live_grep`-matched text, which may require if only
+  using `live_grep`
+
+Of course, you can use `qfscope.nvim` with other telescope commands such as
+`marks`, `diagnostics`, `lsp_reference` and so on.
+
+=============================================================================
+SETUP                                                  *qfscope-introduction*
+
+Map |qfscope.actions| to |telescope.nvim|.
+
+>lua
+  local qfs_actions = require("qfscope.actions")
+  require("telescope").setup({
+    defaults = {
+      mappings = {
+        i = {
+          ["<C-G><C-G>"] = qfs_actions.qfscope_search_filename,
+          ["<C-G><C-F>"] = qfs_actions.qfscope_grep_filename,
+          ["<C-G><C-L>"] = qfs_actions.qfscope_grep_line,
+          ["<C-G><C-T>"] = qfs_actions.qfscope_grep_text,
+        },
+      },
+    },
+  })
+<
+
+=============================================================================
+MODULES AND FUNCTIONS                         *qfscope-modules-and-functions*
+
+
+-----------------------------------------------------------------------------
+*qfscope.setup*
+
+>lua
+  require("qfscope").setup({
+    pickers = {
+      qfscope = {
+        attach_mappings = function(prompt_bufnr, map)
+          local actions = require("qfscope.actions")
+          -- navigations
+          map({ "i" }, "<C-Left>", function()
+            actions.qfscope_open_previous(prompt_bufnr)
+          end)
+          map({ "i" }, "<C-Right>", function()
+            actions.qfscope_open_next(prompt_bufnr)
+          end)
+          return true
+        end,
+      },
+    },
+  })
+<
+
+
+-----------------------------------------------------------------------------
+*qfscope.actions*
+
+Implementations of |telescope.actions|.
+
+*qfscope.actions.qfscope_open_previous*
+*qfscope.actions.qfscope_open_next*
+
+Open previous/next qfscope picker.
+
+*qfscope.actions.qfscope_search_filename*
+*qfscope.actions.qfscope_search_line*
+*qfscope.actions.qfscope_search_text*
+
+Refine search results in qfscope picker by fuzzy finding filename, line, and
+text in |qfscope.pickers.qfscope|.
+
+*qfscope.actions.qfscope_grep_filename*
+*qfscope.actions.qfscope_grep_line*
+*qfscope.actions.qfscope_grep_text*
+
+Refine search results in qfscope picker by grepping filename, line, and text
+in |qfscope.pickers.qfscope|.
+
+-----------------------------------------------------------------------------
+*qfscope.pickers*
+
+*qfscope.pickers.qfscope*
+
+A wrapper of |telescope.pickers.quickfix| that is opened by
+|qfscope.actions|. Users generally do not need to use this directly.
+
+By default, |qfscope.actions.qfscope_open_previous| and
+|qfscope.actions.qfscope_open_next| are mapped to `<C-Left>` and `<C-Right>`.
+See |qfscope.setup| for how to change them.
+
+-----------------------------------------------------------------------------
+*qfscope.sorters*
+
+*qfscope.sorters.get_scoped_search_sorter*
+
+A modified version of generic sorter which scores entry by scoping at a
+specific field of the entry (e.g., filename, line, text).
+
+>lua
+  require("qfscope.sorters").get_scoped_search_sorter({ scope = "filename" })
+<
+
+If you want to modify non-generic sorter, then pass the sorter to opts.
+
+>lua
+  require("qfscope.sorters").get_scoped_search_sorter({
+    scope = "filename",
+    sorter = require("telescope.config").values.file_sorter(),
+  })
+<
+
+*qfscope.sorters.get_scoped_regex_sorter*
+
+Finds entries by matching |regular-expression| to the specified field of the
+entry (e.g., filename, line, text).
+
+>lua
+  require("qfscope.sorters").get_scoped_regex_sorter({ scope = "filename" })
+<
+
+=============================================================================
+vim:tw=78:fo=tcq2mM:ts=8:ft=help:norl
+
