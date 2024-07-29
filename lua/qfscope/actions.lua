@@ -14,21 +14,21 @@ local actions = {
 	end,
 }
 
-for _, target in pairs({
+for _, scope in pairs({
 	"filename",
 	"line",
 	"text",
 }) do
-	actions["qfscope_search_" .. target] = function(prompt_bufnr)
+	actions["qfscope_search_" .. scope] = function(prompt_bufnr)
 		require("telescope.actions").send_to_qflist(prompt_bufnr)
 		require("qfscope.pickers").qfscope({
-			sorter = require("qfscope.sorters").get_scoped_sorter({ target = target }),
+			sorter = require("qfscope.sorters").get_scoped_sorter({ scope = scope }),
 		})
 	end
-	actions["qfscope_grep_" .. target] = function(prompt_bufnr)
+	actions["qfscope_grep_" .. scope] = function(prompt_bufnr)
 		require("telescope.actions").send_to_qflist(prompt_bufnr)
 		require("qfscope.pickers").qfscope({
-			sorter = require("qfscope.sorters").get_scoped_regex_sorter({ target = target }),
+			sorter = require("qfscope.sorters").get_scoped_regex_sorter({ scope = scope }),
 		})
 	end
 end
