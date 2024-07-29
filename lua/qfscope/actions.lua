@@ -17,16 +17,16 @@ local actions = {
 	-- navigations
 	open_previous_qfscope = function(prompt_bufnr)
 		update_qfhistory(prompt_bufnr)
-		if require("qfscope._state").nth > 1 then
-			-- FIXME: opts should be reproduced (e.g., sorter)
-			require("qfscope.pickers").qfscope({ nth = require("qfscope._state").nth - 1 })
+		local state = require("qfscope._state")
+		if state.nth > 1 then
+			require("qfscope.pickers").qfscope(state.record[state.nth - 1].opts)
 		end
 	end,
 	open_next_qfscope = function(prompt_bufnr)
 		update_qfhistory(prompt_bufnr)
-		if require("qfscope._state").nth < #require("qfscope._state").record then
-			-- FIXME: opts should be reproduced (e.g., sorter)
-			require("qfscope.pickers").qfscope({ nth = require("qfscope._state").nth + 1 })
+		local state = require("qfscope._state")
+		if state.nth < #state.record then
+			require("qfscope.pickers").qfscope(state.record[state.nth + 1].opts)
 		end
 	end,
 }

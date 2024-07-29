@@ -1,10 +1,9 @@
 ---@class QfscopeRecord
----@field id number
 ---@field opts table<string, any>
----@field prompt string
+---@field prompt string|nil
 
 local M = {
-	record = {},
+	record = {}, ---@type QfscopeRecord[]
 	nth = 0,
 }
 
