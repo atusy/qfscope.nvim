@@ -19,14 +19,14 @@ local actions = {
 		update_qfhistory(prompt_bufnr)
 		local state = require("qfscope._state")
 		if state.nth > 1 then
-			require("qfscope.pickers").qfscope(state.record[state.nth - 1].opts)
+			require("qfscope.pickers").qfscope({ nth = state.nth - 1 })
 		end
 	end,
 	open_next_qfscope = function(prompt_bufnr)
 		update_qfhistory(prompt_bufnr)
 		local state = require("qfscope._state")
 		if state.nth < #state.record then
-			require("qfscope.pickers").qfscope(state.record[state.nth + 1].opts)
+			require("qfscope.pickers").qfscope({ nth = state.nth + 1 })
 		end
 	end,
 }
