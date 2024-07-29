@@ -12,7 +12,7 @@ Let's trigger `qfscope.nvim` actions and refine search results by fuzzy keywords
 
 ## Demo
 
-![](https://github.com/user-attachments/assets/5c073f15-9342-4269-8aa8-a7e7ec17ea99)
+[](https://github.com/user-attachments/assets/5c073f15-9342-4269-8aa8-a7e7ec17ea99)
 
 ## Example setup
 
