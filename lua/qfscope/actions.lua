@@ -1,12 +1,12 @@
 local actions = {
 	-- navigations
-	open_previous_qfscope = function(_)
+	qfscope_open_previous = function(_)
 		local state = require("qfscope._state")
 		if state.nth > 1 then
 			require("qfscope.pickers").qfscope({ nth = state.nth - 1 })
 		end
 	end,
-	open_next_qfscope = function(_)
+	qfscope_open_next = function(_)
 		local state = require("qfscope._state")
 		if state.nth < #state.record then
 			require("qfscope.pickers").qfscope({ nth = state.nth + 1 })
@@ -34,8 +34,8 @@ for _, target in pairs({
 end
 
 ---@class QfscopeActions : table<string, function(prompt_bufnr: number)>
----@field open_previous_qfscope function(prompt_bufnr: number)
----@field open_next_qfscope function(prompt_bufnr: number)
+---@field qfscope_open_previous function(prompt_bufnr: number)
+---@field qfscope_open_next function(prompt_bufnr: number)
 ---@field qfscope_search_filename function(prompt_bufnr: number)
 ---@field qfscope_search_line function(prompt_bufnr: number)
 ---@field qfscope_search_text function(prompt_bufnr: number)
