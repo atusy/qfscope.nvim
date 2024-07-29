@@ -1,6 +1,8 @@
 # qfscope.nvim
 
-Refine [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) search results.
+quickfix + telescope = qfscope
+
+Refine [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim) search results by using quickfix list.
 
 Typical use case is to refine search results of `:Telescope live_grep`:
 
