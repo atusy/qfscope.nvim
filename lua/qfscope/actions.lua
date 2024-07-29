@@ -22,7 +22,7 @@ for _, scope in pairs({
 	actions["qfscope_search_" .. scope] = function(prompt_bufnr)
 		require("telescope.actions").send_to_qflist(prompt_bufnr)
 		require("qfscope.pickers").qfscope({
-			sorter = require("qfscope.sorters").get_scoped_sorter({ scope = scope }),
+			sorter = require("qfscope.sorters").get_scoped_search_sorter({ scope = scope }),
 		})
 	end
 	actions["qfscope_grep_" .. scope] = function(prompt_bufnr)

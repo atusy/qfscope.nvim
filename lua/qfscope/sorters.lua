@@ -27,7 +27,7 @@ local function get_scope(scope)
 	end
 end
 
-function M.get_scoped_sorter(opts)
+function M.get_scoped_search_sorter(opts)
 	opts = opts or {}
 	local sorter = opts.sorter or require("telescope.config").values.generic_sorter()
 	local score = sorter.scoring_function
