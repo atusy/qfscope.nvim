@@ -1,29 +1,12 @@
-local function update_qfhistory(prompt_bufnr)
-	local prompt = require("telescope.actions.state").get_current_picker(prompt_bufnr):_get_prompt()
-	if prompt == "" then
-		return
-	end
-
-	local state = require("qfscope._state")
-	for i = state.nth, #state.record do
-		state.record[i + 1] = nil
-	end
-	require("telescope.actions").send_to_qflist(prompt_bufnr)
-	state.nth = #state.record + 1
-	state.record[state.nth] = vim.fn.getqflist({ id = 0 }).id
-end
-
 local actions = {
 	-- navigations
-	open_previous_qfscope = function(prompt_bufnr)
-		update_qfhistory(prompt_bufnr)
+	open_previous_qfscope = function(_)
 		local state = require("qfscope._state")
 		if state.nth > 1 then
 			require("qfscope.pickers").qfscope({ nth = state.nth - 1 })
 		end
 	end,
-	open_next_qfscope = function(prompt_bufnr)
-		update_qfhistory(prompt_bufnr)
+	open_next_qfscope = function(_)
 		local state = require("qfscope._state")
 		if state.nth < #state.record then
 			require("qfscope.pickers").qfscope({ nth = state.nth + 1 })
