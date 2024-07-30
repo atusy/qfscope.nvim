@@ -23,7 +23,7 @@ Of course, you can use `qfscope.nvim` with other telescope commands such as
 `marks`, `diagnostics`, `lsp_reference` and so on.
 
 =============================================================================
-SETUP                                                  *qfscope-introduction*
+SETUP                                                         *qfscope-setup*
 
 Map |qfscope.actions| to |telescope.nvim|.
 
@@ -114,6 +114,7 @@ See |qfscope.setup| for how to change them.
 
 A modified version of generic sorter which scores entry by scoping at a
 specific field of the entry (e.g., filename, line, text).
+
 
 >lua
   require("qfscope.sorters").get_scoped_search_sorter({ scope = "filename" })
